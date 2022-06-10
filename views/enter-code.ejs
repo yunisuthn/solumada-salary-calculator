@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Validation code</title>
+  <!-- plugins:css -->
+  <link rel="stylesheet" href="/vendors/ti-icons/css/themify-icons.css">
+  <link rel="stylesheet" href="/vendors/base/vendor.bundle.base.css">
+  <!-- endinject -->
+  <!-- plugin css for this page -->
+  <!-- End plugin css for this page -->
+  <!-- inject:css -->
+  <link rel="stylesheet" href="/css/style.css">
+  <!-- endinject -->
+  <link rel="shortcut icon" href="/images/optumin-solution-logo.png" />
+</head>
+
+<body>
+  <div class="container-scroller">
+    <div class="container-fluid page-body-wrapper full-page-wrapper">
+      <div class="content-wrapper d-flex align-items-stretch auth auth-img-bg">
+        <div class="row flex-grow bg-white">
+          <div class="col-lg-6 d-flex align-items-center justify-content-center">
+            <div class="auth-form-transparent text-left p-3">
+              <div class="brand-logo">
+                <img src="/images/optumin-solution.png" alt="logo">
+                <!-- <img src="/images/Logo-Solumada-01.jpg" alt="logo"> -->
+              </div>
+              <h4>Code for validation</h4>
+              <h6 class="font-weight-light">Please check your email address to get the code.</h6>
+              <form class="pt-3" method="post" action="/enter-code">
+                <div class="form-group">
+                  <label for="exampleInputEmail">Code</label>
+                  <div class="input-group">
+                    <div class="input-group-prepend bg-transparent">
+                      <span class="input-group-text bg-transparent border-right-0">
+                        <i class="ti-key text-primary"></i>
+                      </span>
+                    </div>
+                    <input type="text" class="form-control form-control-lg border-left-0" name="code" id="code" placeholder="Code">
+                  </div>
+                </div>
+                <div class="my-2 d-flex justify-content-between align-items-center">
+                  <div class="form-check">
+                    <!-- <label class="form-check-label text-muted">
+                      <input type="checkbox" class="form-check-input">
+                      Keep me signed in
+                    </label> -->
+                  </div>
+                  <a href="/forgot-password" class="auth-link text-black">go back</a>
+                </div>
+                <div class="my-3">
+                  <button type="submit" id="submit" class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn text-white">SUBMIT</button>
+                  <img src="/images/loading-gif-15.gif" alt="loading..." draggable="false" id="loading-gif" style="width: 110px;opacity: 0;">
+                </div>
+              </form>
+            </div>
+          </div>
+          <div class="col-lg-6 login-half-bg d-flex flex-row">
+            <p class="text-white font-weight-medium text-center flex-grow align-self-end">Copyright © <%= year %>  by Solumada developer</p>
+          </div>
+        </div>
+      </div>
+      <!-- content-wrapper ends -->
+    </div>
+    <!-- page-body-wrapper ends -->
+  </div>
+  <!-- container-scroller -->
+  <!-- plugins:js -->
+  <script src="/vendors/base/vendor.bundle.base.js"></script>
+  <!-- endinject -->
+  <!-- inject:js -->
+  <script src="/js/off-canvas.js"></script>
+  <script src="/js/hoverable-collapse.js"></script>
+  <script src="/js/template.js"></script>
+  <script src="/js/todolist.js"></script>
+  <script src="/js/sweetalert.min.js"></script>
+  <!-- endinject -->
+  <script>
+    let fieldforpass = document.getElementById('new-password');
+    let submitBtn = document.getElementById('submit');
+    let loadingGif = document.getElementById('loading-gif');
+
+    document.forms[0].addEventListener('submit', (e) => {
+
+      let code = document.getElementById('code');
+
+      let validation = true;
+
+      // code
+      if (code.value.trim().length < 6) {
+          code.classList.remove('is-valid');
+          code.classList.add('is-invalid');
+          addSmall(code, 'Please, type a valid code.' ,'text-danger');
+          validation = false;
+      } else {
+          code.classList.remove('is-invalid');
+          code.classList.add('is-valid');
+          addSmall(code, '' ,'text-success');
+      }
+
+      e.preventDefault();
+      
+      if (validation) {
+          // loading...
+          submitBtn.disabled = true;
+          loadingGif.style.opacity = '1';
+
+          var http = new XMLHttpRequest();
+          http.open("POST", e.target.action, true);
+          http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+          http.onreadystatechange = function() {
+              if (this.readyState == 4 && this.status == 200) {
+                  let response = JSON.parse(this.response);
+                  if (response.status) {
+                    window.location = '/new-password';
+                  } else {
+                        if (response.target === 'database') {
+                            swal({
+                                title: 'Error',
+                                text: response.message,
+                                icon: 'error',
+                            });
+                        } else {
+                            code.classList.add('is-invalid');
+                            addSmall(code, response.message, 'text-danger');
+                        }
+                  }
+                  
+                  submitBtn.disabled = false;
+                  loadingGif.style.opacity = '0';
+              }
+          };
+          http.send(`code=${code.value}`);
+      }
+    });
+
+    const addSmall = (input, text, className) => {
+      if (input.parentElement.nextElementSibling) input.parentElement.nextElementSibling.remove();
+      let small = document.createElement('small');
+      small.textContent = text;
+      small.className = className + ' mt-1';
+      input.parentElement.after(small);
+    }
+  </script>
+</body>
+
+</html>

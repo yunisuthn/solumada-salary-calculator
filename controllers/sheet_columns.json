@@ -1,0 +1,41 @@
+{
+    "gss" : {
+        "sheet1": {
+            "arco": "D",
+            "agrobox": "F",
+            "up": "G"
+        },
+        "sheet2": {
+            "arco": "C",
+            "up": "I"
+        },
+        "sheet3": {
+            "arco": "C",
+            "up": "E",
+            "upc": "G",
+            "agrobox": "H",
+            "jefacture": "N"
+        },
+        "sheet4": {
+            "agrobox": "E",
+            "upc": "F",
+            "up": "G"
+        },
+        "sheet5": {
+            "up": "E",
+            "upc": "F",
+            "agrobox": "H"
+        },
+        "sheet6": {
+            "arco": "D"
+        },
+        "sheet7": {
+            "agrobox": "C",
+            "up": "D"
+        },
+        "sheet9": {
+            "agrobox": "C",
+            "up": "D"
+        }
+    }
+}

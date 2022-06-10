@@ -1,0 +1,138 @@
+<div class="content-wrapper">
+    <div class="row">
+        <div class="col-md-12 grid-margin">
+            <div class="d-flex justify-content-between align-items-center">
+                <div>
+                <h4 class="font-weight-bold mb-0">Users <i class="ti-angle-right"></i> Manage access</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12 grid-margin stretch-card">
+            <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Striped Table</h4>
+                <p class="card-description">
+                    All registered <code>users</code>.
+                </p>
+                <div class="table-responsive">
+                    <table class="table table-striped" id="table">
+                        <thead>
+                        <tr>
+                            <th>User</th>
+                            <th>Username</th>
+                            <th>Email</th>
+                            <th>Type</th>
+                            <th>Access</th>
+                            <th class="text-center">Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            <% users.forEach(usr => { %>
+                                <tr>
+                                    <td class="py-1"><img src="/images/user.png" alt="image"> </td>
+                                    <td><%= usr.username %></td>
+                                    <td><%= usr.email %></td>
+                                    <td><%= usr.usertype.toUpperCase() %></td>
+                                    <td>
+                                        <div class="progress">
+                                            <div class="progress-bar <%= usr.access ? 'bg-success' : 'bg-danger' %>" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                                        </div>
+                                    </td>
+                                    <td class="text-center">
+                                        <% if (user.email !== usr.email && usr.usertype === 'guest') { %> 
+                                            <% if (!usr.access) { %> 
+                                            <button onclick="giveAccess(this, '<%= usr.email %>')" class="btn btn-outline-success btn-icon-text">
+                                                <i class="ti-unlock btn-icon-prepend"></i> Give Access
+                                            </button>
+                                            <% } else { %> 
+                                            <button onclick="closeAccess(this, '<%= usr.email %>')" class="btn btn-outline-danger btn-icon-text">
+                                                <i class="ti-lock btn-icon-prepend"></i> Close Access
+                                            </button>
+                                            <% } %> 
+                                        <% } else { %> 
+                                        <button class="btn btn-outline-secondary btn-icon-text" disabled>
+                                            <i class="ti-lock btn-icon-prepend"></i> None
+                                        </button>
+                                        <% } %> 
+                                    </td>
+                                </tr>
+                            <% }) %> 
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap4.min.js"></script>
+<script src="/js/sweetalert.min.js"></script>
+<script>
+
+    const giveAccess = (btn, email) => {
+        swal({
+            title: "Are you sure?",
+            text: "This user will have an access to our site!",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+            })
+            .then((willDelete) => {
+            if (willDelete) {
+                var http = new XMLHttpRequest();
+                http.open("POST", '/set-user-access', true);
+                http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+                http.onreadystatechange = function() {
+                    if (this.readyState == 4 && this.status == 200) {
+                        let response = JSON.parse(this.response);
+                        if (response.status) {
+                            swal(response.message, {
+                                icon: "success",
+                            }).then(e => {
+                                window.location = '/manage-access';
+                            });
+                        }
+                    }
+                };
+                http.send(`email=${email}&access=true`);
+            }
+        });
+    }
+    const closeAccess = (btn, email) => {
+        swal({
+            title: "Are you sure?",
+            text: "This user will no longer be able to access this site!",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+            })
+            .then((willDelete) => {
+            if (willDelete) {
+                var http = new XMLHttpRequest();
+                http.open("POST", '/set-user-access', true);
+                http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+                http.onreadystatechange = function() {
+                    if (this.readyState == 4 && this.status == 200) {
+                        let response = JSON.parse(this.response);
+                        if (response.status) {
+                            swal(response.message, {
+                                icon: "success",
+                            }).then(e => {
+                                window.location = '/manage-access';
+                            });
+                        }
+                    }
+                };
+                http.send(`email=${email}&access=false`);
+            }
+        });
+    }
+    $(document).ready(function() {
+        console.log($('table'));
+        $('table').DataTable();
+    });
+</script>

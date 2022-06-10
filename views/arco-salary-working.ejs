@@ -1,0 +1,402 @@
+<div class="content-wrapper">
+    <div class="row">
+        <div class="col-md-12 grid-margin">
+            <div class="d-flex justify-content-between align-items-center">
+                <div>
+                <h4 class="font-weight-bold mb-0">ARCO <i class="ti-angle-right"></i> ARCO SALARIES WORKING</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card" style="min-height: 650px;">
+        <form action="/arco-start" enctype="multipart/form-data" method="post">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card-body">
+                        <h4 class="card-title text-dark">The file that contains all the data to be copied in the ARCO Salaries file.</h4>
+                    </div>
+                    <!-- RH FILE -->
+                    <div class="card-body">
+                        <h4 class="card-title">Arco Report With Correction Factor Related To Different Shifts</h4>
+                        <p class="card-description">Field to upload <code>ARCO Reporting</code> files. </p>
+                        <div class="template-demo">
+                            <div class="form-group">
+                                <input type="file" name="arco-report" id="arco-report-0" class="file-upload-default arco-report" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel">
+                                <div class="input-group col-xs-12">
+                                    <input type="text" class="form-control file-upload-info" disabled="" placeholder="Upload Microsoft Excel file">
+                                    <button class="file-upload-browse btn btn-primary text-white" type="button" onclick="uploadClick(this, 'arco-report-0')">
+                                        <i class="ti-file btn-icon-prepend"></i>
+                                        Upload file
+                                    </button>
+                                    <button class="btn btn-info text-white" type="button" onclick="deleteARCOField(this)">
+                                        <i class="ti-trash"></i>
+                                    </button>
+                                </div>
+                                <select class="form-control mt-1" style="display: none;" id="arco-report-sheetname">
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <input type="file" name="arco-report" id="arco-report-1" class="file-upload-default arco-report" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel">
+                                <div class="input-group col-xs-12">
+                                    <input type="text" class="form-control file-upload-info" disabled="" placeholder="Upload Microsoft Excel file">
+                                    <button class="file-upload-browse btn btn-primary text-white" type="button" onclick="uploadClick(this, 'arco-report-1')">
+                                        <i class="ti-file btn-icon-prepend"></i>
+                                        Upload file
+                                    </button>
+                                    <button class="btn btn-info text-white" type="button" onclick="deleteARCOField(this)">
+                                        <i class="ti-trash"></i>
+                                    </button>
+                                </div>
+                                <select class="form-control mt-1" style="display: none;" id="arco-report-sheetname">
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <input type="file" name="arco-report" id="arco-report-2" class="file-upload-default arco-report" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel">
+                                <div class="input-group col-xs-12">
+                                    <input type="text" class="form-control file-upload-info" disabled="" placeholder="Upload Microsoft Excel file">
+                                    <button class="file-upload-browse btn btn-primary text-white" type="button" onclick="uploadClick(this, 'arco-report-2')">
+                                        <i class="ti-file btn-icon-prepend"></i>
+                                        Upload file
+                                    </button>
+                                    <button class="btn btn-info text-white" type="button" onclick="deleteARCOField(this)">
+                                        <i class="ti-trash"></i>
+                                    </button>
+                                </div>
+                                <select class="form-control mt-1" style="display: none;" id="arco-report-sheetname">
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <button class="btn btn-info text-white" type="button" onclick="addARCOField(this)">
+                                    <i class="ti-plus"></i> New field
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card-body">
+                        <h4 class="card-title text-dark">The files in which we will copy the data.</h4>
+                    </div>
+                    <div class="card-body">
+                        <h4 class="card-title">ARCO SALARIES WORKINGS</h4>
+                        <p class="card-description">Field to upload <code>ARCO Salaries</code> files.</p>
+                        <div class="template-demo">
+                            <div class="form-group">
+                                <input type="file" name="arco-salary" id="arco-salary" class="file-upload-default" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel">
+                                <div class="input-group col-xs-12">
+                                    <input type="text" class="form-control file-upload-info" disabled="" placeholder="Upload Microsoft Excel file">
+                                    <button class="file-upload-browse btn btn-dark text-white" type="button" role="button" onclick="uploadClick(this, 'arco-salary')">
+                                        <i class="ti-file btn-icon-prepend"></i>
+                                        Upload file
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div id="warnings" class="card-body" style="display: none;">
+                        <table class="table table-border">
+                            <tbody id="warning-field">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card-body">
+                        <hr>
+                        <h4 class="card-title"></h4>
+                        <div class="template-demo text-center">
+                            <p class="text-muted">Click on the button below to start <code>The copy</code> and <code>Download</code> the Excel file.</p>
+                            <p class="text-muted">But before that, make sure that you have uploaded at least a file for each columns.</p>
+                            <button type="submit" role="button" class="btn btn-success text-white btn-icon-text" id="download">
+                                <i class="ti-download btn-icon-prepend"></i>                                                    
+                                Start Copy and Download the file
+                            </button>
+                            <div class="text-center">
+                                <small class="mt-2 text-muted" style="display: block;" id="downloading-p"></small>
+                                <img src="/images/loading-gif-15.gif" alt="loading..." draggable="false" id="loading-gif" style="width: 110px;opacity: 0;">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <script src="/js/sweetalert.min.js"></script>
+    <script src="/js/exceljs.min.js"></script>
+    <script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="../node_modules/socket.io/client-dist/socket.io.js"></script>
+    <script>
+        // post form data
+        var xhr = new XMLHttpRequest();
+        var socket = null;
+        const runSocket = () => {
+            socket = io.connect('/',{
+                reconnection: false,
+                rememberTransport: false,
+            })
+            socket.on('connection');
+            // ACTION
+            socket.on('action-<%= user.email %>', data => {
+                downloadingP.textContent = data;
+            });
+            socket.on('prepare-<%= user.email %>', data => {
+                if (!xhr.response) // the request timedout
+                    socket.emit('prepareoutput-<%= user.email %>', 'do it as fast as you can my dear server.');
+                xhr.abort();
+            });
+            // ACTION
+            socket.on('result', data => {
+                let second = 6;
+                var timerId = setInterval(() => {
+                    if (second > 0) {
+                        second--;
+                        downloadingP.textContent = `Preparing the output file may take about ${second} seconds`;
+                    } else {
+                        clearInterval(timerId);
+                        downloadingP.textContent = 'Downloading...';
+                        window.location.href = data.file;
+                        setTimeout(() => {
+                            downloadBtn.disabled = false;
+                            loadingGif.style.opacity = '0';
+                            downloadingP.textContent = '';
+                        }, 4000);
+                        runSocket();
+                    }
+                }, 1000);
+            });
+
+        }
+        runSocket();
+
+        let downloadBtn = document.getElementById('download');
+        let loadingGif = document.getElementById('loading-gif');
+        let downloadingP = document.getElementById('downloading-p');
+        let warnings = document.getElementById('warnings');
+        var fileSelecteds = [];
+
+        function uploadClick(btn, id) {
+            let inputfile = document.getElementById(id);
+                inputfile.addEventListener('change', () => {})
+            if (inputfile) {
+                inputfile.click();
+                inputfile.addEventListener('change', (e) => {
+                    if (btn.previousElementSibling && btn.previousElementSibling.className === 'btn btn btn-inverse-danger btn-fw reset') {
+                        btn.previousElementSibling.remove();
+                    }
+                    if (inputfile.files.length > 0) {
+                        let btnR = document.createElement('button');
+                        btnR.className = 'btn btn btn-inverse-danger btn-fw reset';
+                        let i = document.createElement('i');
+                        i.className = 'ti-share-alt btn-icon-prepend';
+                        btnR.append(i);
+                        btnR.append(document.createTextNode(' Reset'));
+                        // btnR.setAttribute('onclick')
+                        btnR.addEventListener('click', function(e) {
+                            btnR.remove();
+                            document.getElementById(id).value = null;
+                            document.getElementById(id).files = null;
+                            btn.parentElement.firstElementChild.value = '';
+                            if (btn.parentElement.nextElementSibling)
+                            btn.parentElement.nextElementSibling.style.display = 'none';
+                        });
+                        btn.before(btnR);
+
+                        btn.parentElement.firstElementChild.value = inputfile.files[0].name;
+                    } else {
+                        e.target.nextElementSibling.firstElementChild.value = '';
+                    }
+                    let select = btn.parentElement.nextElementSibling;
+                        // select.style.display = 'none';
+                });
+            }
+        }
+
+        document.forms[0].addEventListener('submit', (e) => {
+            e.preventDefault();
+            let formData = new FormData();
+            let inputFiles = document.querySelectorAll('.arco-report');
+            for (let i = 0; i < inputFiles.length; i++) {
+                if (inputFiles[i].files.length > 0)
+                formData.append('arco_report_'+ (i+1), inputFiles[i].files[0]);
+            }
+
+            formData.append('arco_salary', document.getElementById('arco-salary').files[0]);
+            xhr = new XMLHttpRequest();
+            xhr.responseType = 'json';
+            // log response
+            xhr.onload = () => {
+                if (xhr.readyState === 4) {
+                    if (xhr.status === 503) {
+                        console.log('emitted 503');
+                        return socket.emit('prepareoutput-<%= user.email %>', 'do it as fast as you can my dear server.');
+                    }
+                    if (xhr.response) {
+                        if (xhr.response.status) {
+                            let file = xhr.response.file;
+                            downloadingP.textContent = 'Downloading...';
+                            setTimeout(() => {
+                                window.location.href = file;
+                                downloadBtn.disabled = false;
+                                loadingGif.style.opacity = '0';
+                                downloadingP.textContent = '';
+                            }, 3000);
+                            runSocket();
+                            // xhr.abort(); //unsent 
+                        } else {
+                            swal({
+                                title: new String(xhr.response.icon).toUpperCase(),
+                                text: xhr.response.message,
+                                icon: xhr.response.icon,
+                                type: 'error',
+                            });
+                            downloadBtn.disabled = false;
+                            loadingGif.style.opacity = '0';
+                            downloadingP.textContent = '';
+                        }
+                        document.getElementById('warning-field').innerHTML = '';
+                    }
+
+                }
+            };
+
+            // create and send the reqeust
+            xhr.open('POST', '/arco-start');
+            xhr.send(formData);
+            downloadBtn.disabled = true;
+            loadingGif.style.opacity = '1';
+            downloadingP.textContent = 'Processing...';
+            warnings.style.display = 'none';
+        });
+
+        function addARCOField(btn) {
+            let arcoReportFile = document.querySelectorAll('.arco-report');
+            let div = document.createElement('div');
+            let id = Date.now().toString(32);
+            div.className = 'form-group';
+            div.innerHTML = `
+            <div class="form-group">
+                <input type="file" name="arco-report" id="arco-report-${id}" class="file-upload-default arco-report" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel">
+                <div class="input-group col-xs-12">
+                    <input type="text" class="form-control file-upload-info" disabled="" placeholder="Upload Microsoft Excel file">
+                    <button class="file-upload-browse btn btn-primary text-white" type="button" onclick="uploadClick(this, 'arco-report-${id}')">
+                        <i class="ti-file btn-icon-prepend"></i>
+                        Upload file
+                    </button>
+                    <button class="btn btn-info text-white" type="button" onclick="deleteARCOField(this)">
+                        <i class="ti-trash"></i>
+                    </button>
+                </div>
+                <select class="form-control mt-1" style="display: none;" id="arco-report-sheetname">
+                </select>
+            </div>`;
+            btn.parentElement.before(div);
+            const input = document.getElementById(`arco-report-${id}`)
+            input.nextElementSibling.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                if (e.target.classList.contains('form-control'))  {
+                    e.target.style.borderStyle = 'dashed';
+                    e.target.placeholder = 'Drop file here.';   
+                }
+            });
+            ['dragleave', 'dragend'].forEach(event => {
+                input.nextElementSibling.addEventListener(event, (e) => {
+                    if (e.target.classList.contains('form-control'))  {
+                        e.target.style.borderStyle = 'solid';
+                        e.target.placeholder = 'Upload Microsoft Excel file';
+                    }
+                });
+            });
+            input.nextElementSibling.addEventListener('drop', (e) => {
+                e.preventDefault();
+                e.target.placeholder = 'Upload Microsoft Excel file';
+                e.target.style.borderStyle = 'solid';
+                if (e.dataTransfer.files[0].type === 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet') {
+                    input.files = e.dataTransfer.files;
+                    input.nextElementSibling.firstElementChild.value = e.dataTransfer.files[0].name;
+                    let btn = input.nextElementSibling.firstElementChild.nextElementSibling;
+                    if (btn.previousElementSibling && btn.previousElementSibling.className === 'btn btn btn-inverse-danger btn-fw reset') {
+                        btn.previousElementSibling.remove();
+                    }
+                    let btnR = document.createElement('button');
+                    btnR.className = 'btn btn btn-inverse-danger btn-fw reset';
+                    let i = document.createElement('i');
+                    i.className = 'ti-share-alt btn-icon-prepend';
+                    btnR.append(i);
+                    btnR.append(document.createTextNode(' Reset'));
+                    
+                    btnR.addEventListener('click', function(e) {
+                        btnR.remove();
+                        input.files = null;
+                        btn.parentElement.firstElementChild.value = '';
+                    });
+                    btn.before(btnR);
+                }
+            });
+
+        }
+        function deleteARCOField(btn) {
+            btn.parentElement.parentElement.remove();
+        }
+
+        
+        (function() {
+            window.addEventListener("dragover",function(e){
+                e = e || event;
+                e.preventDefault();
+            },false);
+            window.addEventListener("drop",function(e){
+                e = e || event;
+                e.preventDefault();
+            },false);
+            for (const input of document.querySelectorAll('input[type="file"]')) {
+                input.nextElementSibling.addEventListener('dragover', (e) => {
+                    e.preventDefault();
+                    if (e.target.classList.contains('form-control'))  {
+                        e.target.style.borderStyle = 'dashed';
+                        e.target.placeholder = 'Drop file here.';   
+                    }
+                });
+                ['dragleave', 'dragend'].forEach(event => {
+                    input.nextElementSibling.addEventListener(event, (e) => {
+                        if (e.target.classList.contains('form-control'))  {
+                            e.target.style.borderStyle = 'solid';
+                            e.target.placeholder = 'Upload Microsoft Excel file';
+                        }
+                    });
+                });
+                input.nextElementSibling.addEventListener('drop', (e) => {
+                    e.preventDefault();
+                    e.target.placeholder = 'Upload Microsoft Excel file';
+                    e.target.style.borderStyle = 'solid';
+                    if (e.dataTransfer.files[0].type === 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet') {
+                        input.files = e.dataTransfer.files;
+                        input.nextElementSibling.firstElementChild.value = e.dataTransfer.files[0].name;
+                        let btn = input.nextElementSibling.firstElementChild.nextElementSibling;
+                        if (btn.previousElementSibling && btn.previousElementSibling.className === 'btn btn btn-inverse-danger btn-fw reset') {
+                            btn.previousElementSibling.remove();
+                        }
+                        let btnR = document.createElement('button');
+                        btnR.className = 'btn btn btn-inverse-danger btn-fw reset';
+                        let i = document.createElement('i');
+                        i.className = 'ti-share-alt btn-icon-prepend';
+                        btnR.append(i);
+                        btnR.append(document.createTextNode(' Reset'));
+                        
+                        btnR.addEventListener('click', function(e) {
+                            btnR.remove();
+                            input.files = null;
+                            btn.parentElement.firstElementChild.value = '';
+                        });
+                        btn.before(btnR);
+                    }
+                });
+            }
+        })();
+    </script>
+</div>

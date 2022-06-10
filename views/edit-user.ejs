@@ -1,0 +1,148 @@
+<div class="content-wrapper">
+    <div class="row">
+        <div class="col-md-12 grid-margin">
+            <div class="d-flex justify-content-between align-items-center">
+                <div>
+                <h4 class="font-weight-bold mb-0">Users <i class="ti-angle-right"></i> Edit user</h4>
+                </div>
+                <div>
+                    <a href="/users-list" class="btn btn-warning text-white btn-icon-text btn-rounded">
+                    <i class="ti-list btn-icon-prepend"></i> Users list
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-12 grid-margin stretch-card">
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-title">User information</h4>
+            <p class="card-description">
+              Please, fill in all the fields
+            </p>
+            <form class="forms-sample" method="post" action="/edit-user/<%= userEdit.email %>">
+                <div class="form-group">
+                    <label for="exampleInputName1">Userame</label>
+                    <input type="text" class="form-control" id="username" value="<%= userEdit.username %>" name="username" placeholder="Username">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputEmail3">Email address</label>
+                    <input type="email" class="form-control" id="email" value="<%= userEdit.email %>" name="email" placeholder="Email">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputEmail3">User type</label>
+                    <select class="form-control form-control py-3" id="usertype" name="usertype">
+                        <option value="guest" <%= (userEdit.usertype === 'guest' ? 'selected' : '') %>>Guest</option>
+                        <option value="admin" <%= (userEdit.usertype === 'admin' ? 'selected' : '') %>>Administrator</option>
+                    </select>
+                </div>
+                <button type="submit" id="submit-btn" class="btn btn-primary text-white me-2">Update</button>
+                <img src="/images/loading-gif-15.gif" alt="loading..." draggable="false" id="loading-gif" style="width: 110px;opacity: 0;">
+            </form>
+          </div>
+        </div>
+    </div>
+</div>
+<script src="/js/sweetalert.min.js"></script>
+<script>
+    let submitBtn = document.getElementById('submit-btn');
+    let loadingGif = document.getElementById('loading-gif');
+    const onCheck = (cb) => {
+        // document.getElementById('default-password-field').style.display = cb.checked ? 'none' : 'block';
+    }
+    document.forms[0].addEventListener('submit', (e) => {
+        let username = document.getElementById('username');
+        let email = document.getElementById('email');
+        let password = document.getElementById('password');
+        let usertype = document.getElementById('usertype');
+        let confirm = document.getElementById('confirm');
+
+        let validation = true;
+
+        // username
+        if (username.value.trim().length < 3) {
+            username.classList.remove('is-valid');
+            username.classList.add('is-invalid');
+            addSmall(username, 'Enter a valid username.' ,'text-danger');
+            validation = false;
+        } else {
+            username.classList.remove('is-invalid');
+            username.classList.add('is-valid');
+            addSmall(username, 'Valid.' ,'text-success');
+        }
+        // email
+        let regexEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+        if (!email.value.match(regexEmail)) {
+            email.classList.remove('is-valid');
+            email.classList.add('is-invalid');
+            addSmall(email, 'Enter a valid email.' ,'text-danger');
+            validation = false;
+        } else {
+            email.classList.remove('is-invalid');
+            email.classList.add('is-valid');
+            addSmall(email, 'Valid.' ,'text-success');
+        }
+
+        e.preventDefault();
+        if (validation) {
+            // loading...
+            submitBtn.disabled = true;
+            loadingGif.style.opacity = '1';
+
+            var http = new XMLHttpRequest();
+            http.open("POST", e.target.action, true);
+            http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            http.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    let response = JSON.parse(this.response);
+                    if (response.status) {
+                        swal({
+                            title: 'Success',
+                            text: response.message,
+                            icon: 'success',
+                        });
+                        username.classList.remove('is-valid');
+                        email.classList.remove('is-valid');
+                        if (username.nextElementSibling) username.nextElementSibling.remove();
+                        if (email.nextElementSibling) email.nextElementSibling.remove();
+                    } else {
+                        if (response.data) {
+                            response.data.forEach(resp => {
+                                if (resp.target === 'username') {
+                                    username.classList.add('is-invalid');
+                                    addSmall(username, resp.message, 'text-danger');
+                                }
+                                if (resp.target === 'email') {
+                                    email.classList.add('is-invalid');
+                                    addSmall(email, resp.message, 'text-danger');
+                                }
+                            });
+                        } else {
+                            if (response.target === 'database') {
+                                swal({
+                                    title: 'Error',
+                                    text: response.message,
+                                    icon: 'error',
+                                });
+                            }
+                        }
+                    }
+                    
+                    submitBtn.disabled = false;
+                    loadingGif.style.opacity = '0';
+                }
+            };
+            http.send(`username=${username.value}&email=${email.value}&userType=${usertype.value}`);
+        }
+
+
+    });
+
+    const addSmall = (input, text, className) => {
+        if (input.nextElementSibling) input.nextElementSibling.remove();
+        let small = document.createElement('small');
+        small.textContent = text;
+        small.className = className + ' mt-1';
+        input.after(small);
+    }
+</script>

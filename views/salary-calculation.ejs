@@ -1,0 +1,412 @@
+<div class="content-wrapper">
+    <div class="row">
+        <div class="col-md-12 grid-margin">
+            <div class="d-flex justify-content-between align-items-center">
+                <div>
+                <h4 class="font-weight-bold mb-0">SALARY CALCULATION</h4>
+                </div>
+                <div>
+                    <!-- <button type="button" class="btn btn-primary btn-icon-text btn-rounded">
+                    <i class="ti-clipboard btn-icon-prepend"></i>Report
+                    </button> -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card" style="min-height: 650px;">
+        <form action="/upload-xlsx" enctype="multipart/form-data" method="post">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card-body">
+                        <h4 class="card-title text-dark">The files that contains all the data to be extracted.</h4>
+                    </div>
+                    <!-- RH FILE -->
+                    <div class="card-body">
+                        <h4 class="card-title">RAPPORT RH</h4>
+                        <p class="card-description">Field to upload <code>Rapport RH</code> file. </p>
+                        <div class="template-demo">
+                            <div class="form-group">
+                                <input type="file" name="rapport-rh" id="rapport-rh" class="file-upload-default" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel">
+                                <div class="input-group col-xs-12">
+                                    <input type="text" class="form-control file-upload-info" disabled="" placeholder="Upload Microsoft Excel file">
+                                    <button class="file-upload-browse btn btn-primary text-white" type="button" onclick="uploadClick(this, 'rapport-rh')">
+                                        <i class="ti-file btn-icon-prepend"></i>
+                                        Upload file
+                                    </button>
+                                </div>
+                                <select class="form-control mt-1" style="display: none;" id="rapport-rh-sheetname">
+                                </select>
+                            </div>
+                        </div>
+                        <!-- SALARY UP -->
+                        <h4 class="card-title">Unified Post</h4>
+                        <p class="card-description">Field to upload <code>UP SALARY</code> file.</p>
+                        <div class="template-demo">
+                            <div class="form-group">
+                                <input type="file" name="salary-up" id="salary-up" class="file-upload-default" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel">
+                                <div class="input-group col-xs-12">
+                                    <input type="text" class="form-control file-upload-info" disabled="" placeholder="Upload Microsoft Excel file">
+                                    <button class="file-upload-browse btn btn-primary text-white" type="button" onclick="uploadClick(this, 'salary-up')">
+                                        <i class="ti-file btn-icon-prepend"></i>
+                                        Upload file
+                                    </button>
+                                </div>
+                                <select class="form-control mt-1" style="display: none;" id="salary-up-sheetname">
+                                </select>
+                            </div>
+                        </div>
+                        <!-- AGROBOX -->
+                        <h4 class="card-title">AGROBOX</h4>
+                        <p class="card-description">Field to upload <code>AGROBOX SALARY</code> file.</p>
+                        <div class="template-demo">
+                            <div class="form-group">
+                                <input type="file" name="salary-agrobox" id="salary-agrobox" class="file-upload-default" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel">
+                                <div class="input-group col-xs-12">
+                                    <input type="text" class="form-control file-upload-info" disabled="" placeholder="Upload Microsoft Excel file">
+                                    <button class="file-upload-browse btn btn-primary text-white" type="button" onclick="uploadClick(this, 'salary-agrobox')">
+                                        <i class="ti-file btn-icon-prepend"></i>
+                                        Upload file
+                                    </button>
+                                </div>
+                                <select class="form-control mt-1" style="display: none;" id="salary-agrobox-sheetname">
+                                </select>
+                            </div>
+                        </div>
+                        <!-- ARCO -->
+                        <h4 class="card-title">ARCO</h4>
+                        <p class="card-description">Field to upload <code>ARCO SALARY</code> file.</p>
+                        <div class="template-demo">
+                            <div class="form-group">
+                                <input type="file" name="salary-arco" id="salary-arco" class="file-upload-default" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel">
+                                <div class="input-group col-xs-12">
+                                    <input type="text" class="form-control file-upload-info" disabled="" placeholder="Upload Microsoft Excel file">
+                                    <button class="file-upload-browse btn btn-primary text-white" type="button" onclick="uploadClick(this, 'salary-arco')">
+                                        <i class="ti-file btn-icon-prepend"></i>
+                                        Upload file
+                                    </button>
+                                </div>
+                                <select class="form-control mt-1" style="display: none;" id="salary-agrobox-sheetname">
+                                </select>
+                            </div>
+                        </div>
+                        <!-- UPC -->
+                        <h4 class="card-title">UPC</h4>
+                        <p class="card-description">Field to upload <code>UPC SALARY</code> file.</p>
+                        <div class="template-demo">
+                            <div class="form-group">
+                                <input type="file" name="salary-upc" id="salary-upc" class="file-upload-default" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel">
+                                <div class="input-group col-xs-12">
+                                    <input type="text" class="form-control file-upload-info" disabled="" placeholder="Upload Microsoft Excel file">
+                                    <button class="file-upload-browse btn btn-primary text-white" type="button" onclick="uploadClick(this, 'salary-upc')">
+                                        <i class="ti-file btn-icon-prepend"></i>
+                                        Upload file
+                                    </button>
+                                </div>
+                                <select class="form-control mt-1" style="display: none;" id="salary-agrobox-sheetname">
+                                </select>
+                            </div>
+                        </div>
+                        <!-- JeFacture -->
+                        <h4 class="card-title">JeFacture</h4>
+                        <p class="card-description">Field to upload <code>JeFacture SALARY</code> file.</p>
+                        <div class="template-demo">
+                            <div class="form-group">
+                                <input type="file" name="salary-jefacture" id="salary-jefacture" class="file-upload-default" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel">
+                                <div class="input-group col-xs-12">
+                                    <input type="text" class="form-control file-upload-info" disabled="" placeholder="Upload Microsoft Excel file">
+                                    <button class="file-upload-browse btn btn-primary text-white" type="button" onclick="uploadClick(this, 'salary-jefacture')">
+                                        <i class="ti-file btn-icon-prepend"></i>
+                                        Upload file
+                                    </button>
+                                </div>
+                                <select class="form-control mt-1" style="display: none;" id="salary-agrobox-sheetname">
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card-body">
+                        <h4 class="card-title text-dark">The file to be filled in with the data extracted.</h4>
+                    </div>
+                    <div class="card-body">
+                        <h4 class="card-title">GLOBAL SALARY SHEET</h4>
+                        <p class="card-description">Field to upload <code>GSS</code> file.</p>
+                        <div class="template-demo">
+                            <div class="form-group">
+                                <input type="file" name="salary-sheet" id="salary-sheet" class="file-upload-default" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel">
+                                <div class="input-group col-xs-12">
+                                    <input type="text" class="form-control file-upload-info" disabled="" placeholder="Upload Microsoft Excel file">
+                                    <button class="file-upload-browse btn btn-warning text-white" type="button" role="button" onclick="uploadClick(this, 'salary-sheet')">
+                                        <i class="ti-file btn-icon-prepend"></i>
+                                        Upload file
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div id="warnings" class="card-body" style="display: none;">
+                        <table class="table table-border">
+                            <tbody id="warning-field">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card-body">
+                        <hr>
+                        <h4 class="card-title"></h4>
+                        <div class="template-demo text-center">
+                            <p class="text-muted">Click on the button below to start <code>Data extraction</code> and <code>Download</code> the Excel file.</p>
+                            <p class="text-muted">But before that, make sure that you have uploaded at least a file for each columns.</p>
+                            <button type="submit" role="button" class="btn btn-success text-white btn-icon-text" id="download">
+                                <i class="ti-download btn-icon-prepend"></i>                                                    
+                                Start Data extraction and Download file
+                            </button>
+                            <div class="text-center">
+                                <small class="mt-2 text-muted" style="display: block;" id="downloading-p"></small>
+                                <img src="/images/loading-gif-15.gif" alt="loading..." draggable="false" id="loading-gif" style="width: 110px;opacity: 0;">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <script src="/js/sweetalert.min.js"></script>
+    <script src="/js/exceljs.min.js"></script>
+    <script src="../node_modules/socket.io/client-dist/socket.io.js"></script>
+    <script>
+        var socket = io.connect('/');
+        socket.on('connect', () => {
+            // socket.on('connection');
+        });
+        socket.on("connect_error", () => {
+            setTimeout(() => {
+                socket.connect('/');
+            }, 1000);
+        });
+        // ACTION
+        socket.on('action-<%= user.email %>', message => {
+            console.log(message);
+            downloadingP.textContent = message;
+        });
+    </script>
+    <script>
+        let downloadBtn = document.getElementById('download');
+        let loadingGif = document.getElementById('loading-gif');
+        let downloadingP = document.getElementById('downloading-p');
+        let warnings = document.getElementById('warnings');
+        var fileSelected1 = null,
+            fileSelected2 = null,
+            fileSelected3 = null,
+            fileSelected4 = null,
+            fileSelected5 = null;
+            fileSelected6 = null,
+            fileSelected7 = null;
+
+        function uploadClick(btn, id) {
+            let inputfile = document.getElementById(id);
+                inputfile.addEventListener('change', () => {})
+            if (inputfile) {
+                inputfile.click();
+                inputfile.addEventListener('change', () => {
+                    if (btn.previousElementSibling && btn.previousElementSibling.className === 'btn btn btn-inverse-danger btn-fw reset') {
+                        btn.previousElementSibling.remove();
+                    }
+                    if (inputfile.files.length > 0) {
+                        if (id === 'rapport-rh') fileSelected1 = inputfile.files;
+                        if (id === 'salary-up') fileSelected2 = inputfile.files;
+                        if (id === 'salary-agrobox') fileSelected3 = inputfile.files;
+                        if (id === 'salary-arco') fileSelected4 = inputfile.files;
+                        if (id === 'salary-upc') fileSelected5 = inputfile.files;
+                        if (id === 'salary-facture') fileSelected6 = inputfile.files;
+                        if (id === 'salary-sheet') fileSelected7 = inputfile.files;
+                        let btnR = document.createElement('button');
+                        btnR.className = 'btn btn btn-inverse-danger btn-fw reset';
+                        let i = document.createElement('i');
+                        i.className = 'ti-share-alt btn-icon-prepend';
+                        btnR.append(i);
+                        btnR.append(document.createTextNode(' Reset'));
+                        // btnR.setAttribute('onclick')
+                        btnR.addEventListener('click', function(e) {
+                            btnR.remove();
+                            document.getElementById(id).value = null;
+                            document.getElementById(id).files = null;
+                            btn.parentElement.firstElementChild.value = '';
+                            btn.parentElement.nextElementSibling.style.display = 'none';
+                        });
+                        btn.before(btnR);
+                        
+                    } else {
+                        if (id === 'rapport-rh') inputfile.files = fileSelected1;
+                        if (id === 'salary-up') inputfile.files = fileSelected2;
+                        if (id === 'salary-agrobox') inputfile.files = fileSelected3;
+                        if (id === 'salary-arco') inputfile.files = fileSelected4;
+                        if (id === 'salary-upc') inputfile.files = fileSelected5;
+                        if (id === 'salary-jefacture') inputfile.files = fileSelected6;
+                        if (id === 'salary-sheet') inputfile.files = fileSelected7;
+                    }
+                    btn.parentElement.firstElementChild.value = inputfile.files[0].name;
+                    let select = btn.parentElement.nextElementSibling;
+                        select.style.display = 'none';
+                    return;
+                    // afficher les noms des feuilles
+                    let inputElement = document.getElementById(id);
+                    var files = inputElement.files || [];
+                    if (!files.length) return;
+                    var file = files[0];
+                    var reader = new FileReader();
+                    reader.onloadend = function(event) {
+                        var arrayBuffer = reader.result;
+                        var workbook = new ExcelJS.Workbook();
+                        workbook.xlsx.load(arrayBuffer).then(function(workbook) {
+                            select.innerHTML = '<option value="" class="text-muted">Select the SheetName here</option>';
+                            for (let i = 0; i < workbook.worksheets.length; i++) {
+                                const sheet = workbook.worksheets[i];
+                                select.innerHTML += `<option value="${sheet.name}">${sheet.name}</option>`;
+                            }
+                            select.style.display = 'block';
+                        });
+                    };
+                    reader.readAsArrayBuffer(file);
+                });
+            }
+        }
+
+        document.forms[0].addEventListener('submit', (e) => {
+            e.preventDefault();
+            let file1 = document.getElementById('rapport-rh');
+            let file2 = document.getElementById('salary-up');
+            let file3 = document.getElementById('salary-agrobox');
+            let file4 = document.getElementById('salary-arco');
+            let file5 = document.getElementById('salary-upc');
+            let file6 = document.getElementById('salary-jefacture');
+            let file7 = document.getElementById('salary-sheet');
+
+            let formData = new FormData();
+            formData.append('rh_file', file1.files[0]);
+            formData.append('salaryup_file', file2.files[0]);
+            formData.append('salaryagrobox_file', file3.files[0]);
+            formData.append('salaryarco_file', file4.files[0]);
+            formData.append('salaryupc_file', file5.files[0]);
+            formData.append('salaryjefacture_file', file6.files[0]);
+            formData.append('sheet_file', file7.files[0]);
+
+            // post form data
+            const xhr = new XMLHttpRequest();
+            xhr.responseType = 'json';
+
+            xhr.onload = () => {
+                if (xhr.readyState === 4) {
+                    if (xhr.response.status) {
+                        var link = document.createElement("A");
+                        link.setAttribute("href", '/' + xhr.response.file);
+                        link.setAttribute("style","display:none");
+                        link.setAttribute("download",xhr.response.file);
+                        document.body.appendChild(link);                                                        //needed for firefox
+                        link.click();
+                        // hide loading gif and remove link.
+                        downloadingP.textContent = 'Downloading...';
+                        setTimeout(() => {
+                        downloadingP.textContent = '';
+                            link.remove();
+                        }, 3000);
+                    } else {
+                        swal({
+                            title: new String(xhr.response.icon).toUpperCase(),
+                            text: xhr.response.message,
+                            icon: xhr.response.icon,
+                            type: 'error',
+                        })
+                    }
+                    document.getElementById('warning-field').innerHTML = '';
+                    // show warning
+                    if (Array.isArray(xhr.response.warnings) && xhr.response.warnings.length > 0) {
+                        warnings.style.display = 'block';
+                        xhr.response.warnings.forEach((warn, index) => {
+                        document.getElementById('warning-field').innerHTML += `
+                        <tr class="table-${warn.icon}">
+                                <td>Warning: ${warn.message}</td>
+                            </tr>`; 
+                        });
+                    }
+                    downloadBtn.disabled = false;
+                    loadingGif.style.opacity = '0';
+                    downloadingP.textContent = '';
+                }
+            };
+
+            // create and send the reqeust
+            xhr.open('POST', '/upload-xlsx');
+            xhr.send(formData);
+            downloadBtn.disabled = true;
+            loadingGif.style.opacity = '1';
+            downloadingP.textContent = 'Processing...';
+            warnings.style.display = 'none';
+        });
+
+        // drag and drop 
+
+        (function() {
+            window.addEventListener("dragover",function(e){
+                e = e || event;
+                e.preventDefault();
+            },false);
+            window.addEventListener("drop",function(e){
+                e = e || event;
+                e.preventDefault();
+            },false);
+            
+            for (const input of document.querySelectorAll('input[type="file"]')) {
+                input.nextElementSibling.addEventListener('dragover', (e) => {
+                    e.preventDefault();
+                    if (e.target.classList.contains('form-control'))  {
+                        e.target.style.borderStyle = 'dashed';
+                        e.target.placeholder = 'Drop file here.';   
+                    }
+                });
+                ['dragleave', 'dragend'].forEach(event => {
+                    input.nextElementSibling.addEventListener(event, (e) => {
+                        if (e.target.classList.contains('form-control'))  {
+                            e.target.style.borderStyle = 'solid';
+                            e.target.placeholder = 'Upload Microsoft Excel file';
+                        }
+                    });
+                });
+                input.nextElementSibling.addEventListener('drop', (e) => {
+                    e.preventDefault();
+                    e.target.placeholder = 'Upload Microsoft Excel file';
+                    e.target.style.borderStyle = 'solid';
+                    if (e.dataTransfer.files[0].type === 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet') {
+                        input.files = e.dataTransfer.files;
+                        input.nextElementSibling.firstElementChild.value = e.dataTransfer.files[0].name;
+                        let btn = input.nextElementSibling.lastElementChild;
+                        if (btn.previousElementSibling && btn.previousElementSibling.className === 'btn btn btn-inverse-danger btn-fw reset') {
+                            btn.previousElementSibling.remove();
+                        }
+                        let btnR = document.createElement('button');
+                        btnR.className = 'btn btn btn-inverse-danger btn-fw reset';
+                        let i = document.createElement('i');
+                        i.className = 'ti-share-alt btn-icon-prepend';
+                        btnR.append(i);
+                        btnR.append(document.createTextNode(' Reset'));
+                        
+                        btnR.addEventListener('click', function(e) {
+                            btnR.remove();
+                            input.files = null;
+                            btn.parentElement.firstElementChild.value = '';
+                        });
+                        btn.before(btnR);
+                    }
+                });
+            }
+        })();
+    </script>
+</div>
